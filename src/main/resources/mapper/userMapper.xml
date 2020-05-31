@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdtu.dao.UserDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <select id="findById" resultType="User" parameterType="long">
+        <!-- 具体的sql -->
+        SELECT u.id,username,u.name,tel,identify,m.name 'major.name',m.mid 'major.mid',textpass FROM user u INNER JOIN major m ON u.majorid = m.mid
+        WHERE id = #{id}
+    </select>
+  <select id="findAll" resultType="User" parameterType="int">
+      SELECT u.id,username,u.password,u.name,tel,identify,m.name 'major.name',m.mid 'major.mid' FROM user u INNER JOIN major m ON u.majorid = m.mid order by id
+  </select>
+    <update id="updateUser" parameterType="string" >
+        update user set password=#{password},textpass=#{textpass} where tel=#{tel}
+    </update>
+    <select id="findByUsername" resultType="User" parameterType="string">
+        SELECT u.id,username,u.password,u.name,tel,identify,m.name 'major.name',m.mid 'major.mid' FROM user u INNER JOIN major m ON u.majorid = m.mid  where username=#{username}
+    </select>
+    <select id="findByName"  resultType="User" parameterType="string">
+        SELECT u.id,username,u.password,u.name,tel,identify,m.name 'major.name',m.mid 'major.mid' FROM user u INNER JOIN major m ON u.majorid = m.mid  where u.name=#{name}
+    </select>
+</mapper>
